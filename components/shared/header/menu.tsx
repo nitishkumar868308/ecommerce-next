@@ -11,7 +11,7 @@ export default function Menu() {
 
                 <Link href='/cart' className="header-button">
                     <ShoppingCartIcon className="h-4 w-8" />
-                    <span>Card</span>
+                    <span>Cart</span>
                 </Link>
             </nav>
         </div>
