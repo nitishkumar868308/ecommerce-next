@@ -19,6 +19,7 @@
     "embla-carousel-react": "^8.5.2",
     "lucide-react": "^0.475.0",
     "mongoose": "^8.10.0",
+    "my-app": "file:",
     "next": "15.1.7",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
