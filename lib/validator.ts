@@ -70,11 +70,10 @@ export const OrderItemSchema = z.object({
 })
 
 // Cart
-
 export const CartSchema = z.object({
     items: z
-      .array(OrderItemSchema)
-      .min(1, 'Order must contain at least one item'),
+        .array(OrderItemSchema)
+        .min(1, 'Order must contain at least one item'),
     itemsPrice: z.number(),
     taxPrice: z.optional(z.number()),
     shippingPrice: z.optional(z.number()),
@@ -82,6 +81,37 @@ export const CartSchema = z.object({
     paymentMethod: z.optional(z.string()),
     deliveryDateIndex: z.optional(z.number()),
     expectedDeliveryDate: z.optional(z.date()),
-  })
+})
+
+// User
+const UserName = z.string().min(2, { message: 'UserName must be at least 2 characters' }).max(20, { message: 'UserName must be at most 20 characters' })
+const Email = z.string().min(1, 'Email is required').email('Email is invalid')
+const Password = z.string().min(3, 'Password must be at least 3 characters')
+const UserRole = z.string().min(1, 'role is required')
+
+
+export const UserInputSchema = z.object({
+    name: UserName,
+    email: Email,
+    image: z.string().optional(),
+    emailVerified: z.boolean(),
+    role: UserRole,
+    password: Password,
+    paymentMethod: z.string().min(1, 'Payment method is required'),
+    address: z.object({
+        fullName: z.string().min(1, 'Full Name is required'),
+        street: z.string().min(1, 'Street is required'),
+        city: z.string().min(1, 'City is required'),
+        province: z.string().min(1, 'Province is required'),
+        postalCode: z.string().min(1, 'Postal Code is required'),
+        country: z.string().min(1, 'Country is required'),
+        phone: z.string().min(1, 'Phone Number is required'),
+    })
+})
+
+export const UserSignInSchema = z.object({
+    email: Email,
+    password: Password
+})
 
 
