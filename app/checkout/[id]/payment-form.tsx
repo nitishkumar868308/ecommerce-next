@@ -18,22 +18,19 @@ import CheckoutFooter from '../checkout-footer'
 import { redirect, useRouter } from 'next/navigation'
 import { Button } from '@/components/ui/button'
 import ProductPrice from '@/components/shared/product/product-price'
-// import StripeForm from './stripe-form'
-// import { Elements } from '@stripe/react-stripe-js'
-// import { loadStripe } from '@stripe/stripe-js'
+import { loadStripe } from '@stripe/stripe-js'
+import StripeForm from './stripe-form'
+import { Elements } from '@stripe/react-stripe-js'
 
-// const stripePromise = loadStripe(
-//     process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY as string
-// )
 export default function OrderDetailsForm({
     order,
     paypalClientId,
-    // clientSecret,
+    clientSecret,
 }: {
     order: IOrder
     paypalClientId: string
     isAdmin: boolean
-    // clientSecret: string | null
+    clientSecret: string | null
 }) {
     const router = useRouter()
     const {
@@ -133,7 +130,7 @@ export default function OrderDetailsForm({
                                 </PayPalScriptProvider>
                             </div>
                         )}
-                        {/* {!isPaid && paymentMethod === 'Stripe' && clientSecret && (
+                        {!isPaid && paymentMethod === 'Stripe' && clientSecret && (
                             <Elements
                                 options={{
                                     clientSecret,
@@ -145,7 +142,7 @@ export default function OrderDetailsForm({
                                     orderId={order._id}
                                 />
                             </Elements>
-                        )} */}
+                        )}
 
                         {!isPaid && paymentMethod === 'Cash On Delivery' && (
                             <Button
@@ -159,6 +156,10 @@ export default function OrderDetailsForm({
                 </div>
             </CardContent>
         </Card>
+    )
+
+    const stripePromise = loadStripe(
+        process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY as string
     )
 
     return (
